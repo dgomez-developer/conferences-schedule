@@ -35,7 +35,7 @@ class _MyScheduleScreenState extends State {
         }
         _children = new List<Widget>();
         for(var day in myConference.days){
-          _children.add(ConferenceScheduleScreen(day: day));
+          _children.add(new ConferenceScheduleScreen(day: day));
         }
       });
     }

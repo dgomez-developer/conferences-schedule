@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
         conference = onValue;
         _children = new List<Widget>();
         for(var day in conference.days){
-          _children.add(ConferenceScheduleScreen(day: day));
+          _children.add(new ConferenceScheduleScreen(key: UniqueKey(),day: day));
         }
       });
     }
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
   List<BottomNavigationBarItem> createTabs(){
     var tabs = new List<BottomNavigationBarItem>();
     for(var day in conference.days){
-      tabs.add(BottomNavigationBarItem(
+      tabs.add(new BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
           title: Text(day.date),
         )

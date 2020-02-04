@@ -11,7 +11,7 @@ class TrackScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  createState() => _TrackScreenState(track: track);
+  createState() => _TrackScreenState(track: track, dayId: dayId);
 }
 
 class _TrackScreenState extends State {

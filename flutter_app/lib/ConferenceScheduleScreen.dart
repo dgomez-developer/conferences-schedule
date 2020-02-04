@@ -36,7 +36,7 @@ class _ConferencesScheduleScreenState extends State {
   List<Widget> createTabs() {
     var tabs = new List<Widget>();
     for (var track in conference.tracks) {
-      tabs.add(Text(track.name));
+      tabs.add(new Text(track.name));
     }
     return tabs;
   }
@@ -44,7 +44,7 @@ class _ConferencesScheduleScreenState extends State {
   List<Widget> createTabViews() {
     var tabViews = new List<Widget>();
     for (var track in conference.tracks) {
-      tabViews.add(TrackScreen(track: track));
+      tabViews.add(new TrackScreen(key: UniqueKey(),track: track, dayId: conference.dayId));
     }
     return tabViews;
   }

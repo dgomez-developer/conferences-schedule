@@ -18,13 +18,15 @@ class ConferenceModel {
 }
 
 class ConferenceDayModel {
+  int dayId;
   String date;
   List<TrackModel> tracks;
 
-  ConferenceDayModel({this.date, this.tracks});
+  ConferenceDayModel({this.dayId, this.date, this.tracks});
 
   factory ConferenceDayModel.fromJson(Map<String, dynamic> parsedJson) {
     return ConferenceDayModel(
+        dayId: parsedJson['dayId'],
         date: parsedJson['date'],
         tracks: (parsedJson['tracks'] as List)
             .map((track) => TrackModel.fromJson(track))
@@ -61,13 +63,13 @@ class TalkModel {
   String endTime;
 
   TalkModel(
-      {this.position,
-      this.speaker,
-      this.speakerInfo,
-      this.title,
-      this.description,
-      this.startTime,
-      this.endTime});
+      {this.position = 0,
+      this.speaker = "",
+      this.speakerInfo = "",
+      this.title = "",
+      this.description = "",
+      this.startTime = "",
+      this.endTime = ""});
 
   factory TalkModel.fromJson(Map<String, dynamic> parsedJson) {
     return TalkModel(

@@ -6,7 +6,6 @@ import 'package:flutter_app/ConferenceModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Storage {
-
   static const CONFERENCE_KEY = "conference";
 
   static Future<ConferenceModel> getMyTracks(
@@ -18,8 +17,9 @@ class Storage {
     }
     List<ConferenceDayModel> days = conferenceModel.days;
     List<ConferenceDayModel> myDays = new List<ConferenceDayModel>(days.length);
-    for(var i = 0; i < myDays.length; i++){
-      myDays[i] = new ConferenceDayModel(date: days[i].date, tracks: new List<TrackModel>());
+    for (var i = 0; i < myDays.length; i++) {
+      myDays[i] = new ConferenceDayModel(
+          date: days[i].date, tracks: new List<TrackModel>());
     }
     for (var keyId in keys) {
       var talkJson = prefs.getString(keyId);
@@ -29,12 +29,25 @@ class Storage {
       var talk = TalkModel.fromJson(json.decode(talkJson));
       var dayId = keyId.split('-')[0];
       print(dayId);
-      myDays[int.parse(dayId)-1].tracks[0].talks[talk.position] = talk;
+      if (myDays[int.parse(dayId) - 1].tracks.isEmpty) {
+        myDays[int.parse(dayId) - 1].tracks = new List(1);
+        myDays[int.parse(dayId) - 1].tracks[0] = new TrackModel(
+            name: "my track",
+            talks: new List(days[int.parse(dayId) - 1].tracks[0].talks.length));
+        for (var j = 0;
+            j < myDays[int.parse(dayId) - 1].tracks[0].talks.length;
+            j++) {
+          myDays[int.parse(dayId) - 1].tracks[0].talks[j] = new TalkModel();
+        }
+      }
+      myDays[int.parse(dayId) - 1].tracks[0].talks[talk.position] = talk;
     }
 
-    return ConferenceModel(location: conferenceModel.location, name: conferenceModel.name, days: myDays );
+    return ConferenceModel(
+        location: conferenceModel.location,
+        name: conferenceModel.name,
+        days: myDays);
   }
-
 
   static Future storeTalk(int dayId, TalkModel talk) async {
     print("Storing: " + talk.title);
