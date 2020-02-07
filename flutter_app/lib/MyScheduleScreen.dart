@@ -35,7 +35,7 @@ class _MyScheduleScreenState extends State {
         }
         _children = new List<Widget>();
         for(var day in myConference.days){
-          _children.add(new ConferenceScheduleScreen(day: day));
+          _children.add(new ConferenceScheduleScreen(key: UniqueKey(), day: day, showOnlyOneTrack: true));
         }
       });
     }
@@ -50,7 +50,7 @@ class _MyScheduleScreenState extends State {
   Scaffold createBottomBar() {
     return (_children != null) ? Scaffold(
       appBar: AppBar(
-        title: Text(conference.name),
+        title: Text("my track"),
       ),
       body: _children[_currentIndex], // new
       bottomNavigationBar: BottomNavigationBar(
@@ -60,7 +60,7 @@ class _MyScheduleScreenState extends State {
       ),
     ) : Scaffold(
       appBar: AppBar(
-        title: Text(conference.name),
+        title: Text("my track"),
       ),
       body: Text('Strat creating your track'),
     );

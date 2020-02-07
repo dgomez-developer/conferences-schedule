@@ -37,7 +37,17 @@ class _TrackScreenState extends State {
   Widget createCard(TalkModel talk) {
     return ListTile(
       title: Text(talk.title),
-      subtitle: Text(talk.speaker),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: Text(talk.speaker),
+          ),
+          Text(talk.startTime + " - " + talk.endTime),
+          Divider()
+        ],
+      ),
       trailing: IconButton(
           icon: Icon(Icons.star_border),
           onPressed: () {

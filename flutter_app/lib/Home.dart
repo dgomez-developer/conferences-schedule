@@ -12,7 +12,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   ConferenceModel conference;
 
   int _currentIndex = 0;
@@ -24,12 +23,14 @@ class _HomeState extends State<Home> {
       setState(() {
         conference = onValue;
         _children = new List<Widget>();
-        for(var day in conference.days){
-          _children.add(new ConferenceScheduleScreen(key: UniqueKey(),day: day));
+        for (var day in conference.days) {
+          _children.add(new ConferenceScheduleScreen(
+              key: UniqueKey(),
+              day: day,
+              showOnlyOneTrack: day.tracks.length < 2));
         }
       });
-    }
-    );
+    });
   }
 
   @override
@@ -55,14 +56,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-  List<BottomNavigationBarItem> createTabs(){
+  List<BottomNavigationBarItem> createTabs() {
     var tabs = new List<BottomNavigationBarItem>();
-    for(var day in conference.days){
+    for (var day in conference.days) {
       tabs.add(new BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today),
-          title: Text(day.date),
-        )
-      );
+        icon: Icon(Icons.calendar_today),
+        title: Text(day.date),
+      ));
     }
     return tabs;
   }
@@ -77,7 +77,9 @@ class _HomeState extends State<Home> {
     Navigator.push(
       context,
       // Create the SelectionScreen in the next step.
-      MaterialPageRoute(builder: (context) => MyScheduleScreen(conferenceModel: conference)),
+      MaterialPageRoute(
+          builder: (context) =>
+              MyScheduleScreen(key: UniqueKey(), conferenceModel: conference)),
     );
   }
 }

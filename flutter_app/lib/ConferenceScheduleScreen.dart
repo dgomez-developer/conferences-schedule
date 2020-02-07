@@ -4,24 +4,37 @@ import 'package:flutter_app/ConferenceModel.dart';
 import 'TrackScreen.dart';
 
 class ConferenceScheduleScreen extends StatefulWidget {
-  ConferenceDayModel day;
 
-  ConferenceScheduleScreen({Key key, @required this.day}) : super(key: key);
+  final ConferenceDayModel day;
+  final bool showOnlyOneTrack;
+
+  ConferenceScheduleScreen({Key key, @required this.day, @required this.showOnlyOneTrack}) : super(key: key);
 
   @override
-  createState() => _ConferencesScheduleScreenState(conference: day);
+  createState() => _ConferencesScheduleScreenState(conference: day, showOnlyOneTrack: showOnlyOneTrack);
 }
 
 class _ConferencesScheduleScreenState extends State {
-  ConferenceDayModel conference;
 
-  _ConferencesScheduleScreenState({@required this.conference});
+  final ConferenceDayModel conference;
+  final bool showOnlyOneTrack;
+
+  _ConferencesScheduleScreenState({@required this.conference, @required this.showOnlyOneTrack});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: conference.tracks.length,
-        child: Scaffold(
+        length: conference.tracks.length, child: createScreen());
+  }
+
+  Scaffold createScreen() {
+    if (showOnlyOneTrack) {
+      return Scaffold(
+          body: TabBarView(
+        children: createTabViews(),
+      ));
+    } else {
+      return Scaffold(
           appBar: AppBar(
             title: TabBar(
               tabs: createTabs(),
@@ -29,8 +42,8 @@ class _ConferencesScheduleScreenState extends State {
           ),
           body: TabBarView(
             children: createTabViews(),
-          ),
-        ));
+          ));
+    }
   }
 
   List<Widget> createTabs() {
@@ -44,7 +57,8 @@ class _ConferencesScheduleScreenState extends State {
   List<Widget> createTabViews() {
     var tabViews = new List<Widget>();
     for (var track in conference.tracks) {
-      tabViews.add(new TrackScreen(key: UniqueKey(),track: track, dayId: conference.dayId));
+      tabViews.add(new TrackScreen(
+          key: UniqueKey(), track: track, dayId: conference.dayId));
     }
     return tabViews;
   }
