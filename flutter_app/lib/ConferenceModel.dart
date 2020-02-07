@@ -61,6 +61,7 @@ class TalkModel {
   String description;
   String startTime;
   String endTime;
+  bool isFavourite;
 
   TalkModel(
       {this.position = 0,
@@ -69,7 +70,8 @@ class TalkModel {
       this.title = "",
       this.description = "",
       this.startTime = "",
-      this.endTime = ""});
+      this.endTime = "",
+      this.isFavourite = false});
 
   factory TalkModel.fromJson(Map<String, dynamic> parsedJson) {
     return TalkModel(
@@ -79,7 +81,8 @@ class TalkModel {
         title: parsedJson['title'],
         description: parsedJson['description'],
         startTime: parsedJson['startTime'],
-        endTime: parsedJson['endTime']);
+        endTime: parsedJson['endTime'],
+        isFavourite: false);
   }
 
   Map<String, dynamic> toJson() => {
@@ -90,5 +93,6 @@ class TalkModel {
         'description': description,
         'startTime': startTime,
         'endTime': endTime,
+        'isFavourite': isFavourite
       };
 }

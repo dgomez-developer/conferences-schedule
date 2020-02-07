@@ -3,7 +3,6 @@ import 'package:flutter_app/ConferenceModel.dart';
 import 'package:flutter_app/Storage.dart';
 
 class TrackScreen extends StatefulWidget {
-
   TrackModel track;
   int dayId;
 
@@ -15,7 +14,6 @@ class TrackScreen extends StatefulWidget {
 }
 
 class _TrackScreenState extends State {
-
   TrackModel track;
   int dayId;
 
@@ -33,7 +31,6 @@ class _TrackScreenState extends State {
     );
   }
 
-
   Widget createCard(TalkModel talk) {
     return ListTile(
       title: Text(talk.title),
@@ -41,23 +38,23 @@ class _TrackScreenState extends State {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: Text(talk.speaker),
+            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+            child: Text(talk.speaker),
           ),
           Text(talk.startTime + " - " + talk.endTime),
           Divider()
         ],
       ),
-      trailing: IconButton(
-          icon: Icon(Icons.star_border),
-          onPressed: () {
-            Storage.storeTalk(dayId, talk);
-            setState(() {
-              Icon(Icons.star);
-            });
-          }
-      ),
+      trailing: Opacity(
+          opacity: (talk.speaker.isEmpty) ? 0.0 : 1.0,
+          child: IconButton(
+              icon: Icon((talk.isFavourite) ? Icons.star : Icons.star_border),
+              onPressed: () {
+                Storage.storeTalk(dayId, talk);
+                setState(() {
+                  talk.isFavourite = !talk.isFavourite;
+                });
+              })),
     );
   }
-
 }

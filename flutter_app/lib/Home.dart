@@ -12,8 +12,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ConferenceModel conference;
 
+  ConferenceModel conference;
   int _currentIndex = 0;
   List<Widget> _children;
 
