@@ -28,7 +28,6 @@ class Storage {
       }
       var talk = TalkModel.fromJson(json.decode(talkJson));
       var dayId = keyId.split('-')[0];
-      print(dayId);
       if (myDays[int.parse(dayId) - 1].tracks.isEmpty) {
         myDays[int.parse(dayId) - 1].tracks = new List(1);
         myDays[int.parse(dayId) - 1].tracks[0] = new TrackModel(
@@ -50,10 +49,14 @@ class Storage {
   }
 
   static Future storeTalk(int dayId, TalkModel talk) async {
-    print("Storing: " + talk.title);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String talkJson = jsonEncode(talk.toJson());
     prefs.setString(dayId.toString() + "-" + talk.startTime, talkJson);
+  }
+
+  static Future removeTalk(int dayId, TalkModel talk) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(dayId.toString() + "-" + talk.startTime);
   }
 
   static Future<TalkModel> getTalk(int dayId, String startTime) async {

@@ -82,7 +82,7 @@ class TalkModel {
         description: parsedJson['description'],
         startTime: parsedJson['startTime'],
         endTime: parsedJson['endTime'],
-        isFavourite: false);
+        isFavourite: (parsedJson['isFavourite'] == null) ? false : parsedJson['isFavourite']);
   }
 
   Map<String, dynamic> toJson() => {

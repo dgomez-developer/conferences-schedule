@@ -50,7 +50,11 @@ class _TrackScreenState extends State {
           child: IconButton(
               icon: Icon((talk.isFavourite) ? Icons.star : Icons.star_border),
               onPressed: () {
-                Storage.storeTalk(dayId, talk);
+                if(talk.isFavourite){
+                  Storage.removeTalk(dayId, talk);
+                } else {
+                  Storage.storeTalk(dayId, talk);
+                }
                 setState(() {
                   talk.isFavourite = !talk.isFavourite;
                 });
