@@ -4,7 +4,7 @@ import 'package:flutter_app/ConferenceModel.dart';
 import 'package:http/http.dart' as http;
 
 //const localhostUrl = "http://10.0.2.2:5000";
-const localhostUrl = "https://api.myjson.com/bins/1610ew";
+const localhostUrl = "https://api.myjson.com/bins/1hiqpc";
 
 class API {
 

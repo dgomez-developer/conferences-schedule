@@ -23,28 +23,52 @@ class _MyScheduleScreenState extends State {
 
   initState() {
     super.initState();
-    Storage.getMyTracks(conference).then((onValue) {
-      setState(() {
-        myConference = onValue;
-        if (myConference == null) {
-          return;
-        }
-        _children = new List<Widget>();
-        for (var day in myConference.days) {
-          _children.add(new ConferenceScheduleScreen(
-              key: UniqueKey(), day: day, showOnlyOneTrack: true));
-        }
-      });
-    });
+    loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return createBottomBar();
+
+    return FutureBuilder<ConferenceModel>(
+      future: loadData(),
+      builder: (BuildContext context, AsyncSnapshot<ConferenceModel> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text("my track"),
+              ),
+              body: Center(
+                child: Text('Loading your schedule ...'),
+              ));
+        } else {
+          myConference = snapshot.data;
+          if (myConference != null) {
+            _children = new List<Widget>();
+            for (var day in myConference.days) {
+              _children.add(new ConferenceScheduleScreen(
+                  key: UniqueKey(), day: day, showOnlyOneTrack: true));
+            }
+            return createBottomBar();
+          } else {
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text("my track"),
+                ),
+                body: Center(
+                  child: Text('Start creating your track'),
+                ));
+          }
+        }
+      },
+    );
+  }
+
+  Future<ConferenceModel> loadData() {
+    return Storage.getMyTracks(conference);
   }
 
   Scaffold createBottomBar() {
-    return (_children != null)
+    return (_children != null && _children.isNotEmpty)
         ? Scaffold(
             appBar: AppBar(
               title: Text("my track"),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ConferenceModel.dart';
+import 'package:flutter_app/TalkMapper.dart';
 import 'API.dart';
 import 'ConferenceScheduleScreen.dart';
 import 'MyScheduleScreen.dart';
@@ -12,7 +13,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   ConferenceModel conference;
   int _currentIndex = 0;
   List<Widget> _children;
@@ -22,13 +22,15 @@ class _HomeState extends State<Home> {
     API.getConference().then((onValue) {
       setState(() {
         conference = onValue;
-        _children = new List<Widget>();
-        for (var day in conference.days) {
-          _children.add(new ConferenceScheduleScreen(
-              key: UniqueKey(),
-              day: day,
-              showOnlyOneTrack: day.tracks.length < 2));
-        }
+        TalkMapper.markAsFavourite(conference).then((onValue) {
+          _children = new List<Widget>();
+          for (var day in conference.days) {
+            _children.add(new ConferenceScheduleScreen(
+                key: UniqueKey(),
+                day: day,
+                showOnlyOneTrack: day.tracks.length < 2));
+          }
+        });
       });
     });
   }

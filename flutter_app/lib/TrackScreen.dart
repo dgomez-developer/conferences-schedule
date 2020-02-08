@@ -57,6 +57,10 @@ class _TrackScreenState extends State {
                 }
                 setState(() {
                   talk.isFavourite = !talk.isFavourite;
+                  talk.title = "";
+                  talk.speaker = "";
+                  talk.startTime = "";
+                  talk.endTime = "";
                 });
               })),
     );
