@@ -37,7 +37,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   void dispose(){
-    animationController.dispose();
+    if(animationController != null) {
+      animationController.dispose();
+    }
     super.dispose();
   }
 
@@ -47,10 +49,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       future: loadData(),
       builder: (BuildContext context, AsyncSnapshot<ConferenceModel> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          return (animationController !=null) ? Scaffold(
               backgroundColor: Colors.blue,
               body: Center(
-                child: JumpingLogo(animation: animation),
+                child: JumpingLogo(animation: animation)
+              )) :
+          Scaffold(
+              appBar: AppBar(title: Text(conference.name)),
+              body: Center(
+                child: CircularProgressIndicator(backgroundColor: Colors.blue),
               ));
         } else {
           conference = snapshot.data;
@@ -62,7 +69,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 conferenceName: conference.name,
                 showOnlyOneTrack: day.tracks.length < 2));
           }
-          animationController.dispose();
+          if(animationController!=null) {
+            animationController.dispose();
+            animationController = null;
+          }
           return createBottomBar();
         }
       },
