@@ -19,12 +19,37 @@ class _HomeState extends State<Home> {
 
   initState() {
     super.initState();
-    loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return createBottomBar();
+//    return createBottomBar();
+    return FutureBuilder(
+      future: loadData(),
+      builder: (BuildContext context, AsyncSnapshot<ConferenceModel> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+              backgroundColor: Colors.blue,
+              body: Center(
+                 child: CircularProgressIndicator(
+                   backgroundColor: Colors.white,
+                 ),
+               )
+          );
+        } else {
+          conference = snapshot.data;
+          _children = new List<Widget>();
+          for (var day in conference.days) {
+            _children.add(new ConferenceScheduleScreen(
+                key: UniqueKey(),
+                day: day,
+                conferenceName: conference.name,
+                showOnlyOneTrack: day.tracks.length < 2));
+          }
+          return createBottomBar();
+        }
+      },
+    );
   }
 
   Scaffold createBottomBar() {
@@ -67,23 +92,25 @@ class _HomeState extends State<Home> {
           builder: (context) =>
               MyScheduleScreen(key: UniqueKey(), conferenceModel: conference)),
     );
-    loadData();
+    reloadData();
   }
 
-  void loadData() {
+  Future<ConferenceModel> loadData() {
+    return API.getConference();
+  }
+
+  void reloadData() {
     API.getConference().then((onValue) {
       setState(() {
         conference = onValue;
-        TalkMapper.markAsFavourite(conference).then((onValue) {
-          _children = new List<Widget>();
-          for (var day in conference.days) {
-            _children.add(new ConferenceScheduleScreen(
-                key: UniqueKey(),
-                day: day,
-                conferenceName: conference.name,
-                showOnlyOneTrack: day.tracks.length < 2));
-          }
-        });
+        _children = new List<Widget>();
+        for (var day in conference.days) {
+          _children.add(new ConferenceScheduleScreen(
+              key: UniqueKey(),
+              day: day,
+              conferenceName: conference.name,
+              showOnlyOneTrack: day.tracks.length < 2));
+        }
       });
     });
   }

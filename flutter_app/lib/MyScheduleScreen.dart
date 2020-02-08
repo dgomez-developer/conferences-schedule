@@ -23,7 +23,7 @@ class _MyScheduleScreenState extends State {
 
   initState() {
     super.initState();
-    loadData();
+//    loadData();
   }
 
   @override
