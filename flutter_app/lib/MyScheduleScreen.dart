@@ -46,7 +46,7 @@ class _MyScheduleScreenState extends State {
             _children = new List<Widget>();
             for (var day in myConference.days) {
               _children.add(new ConferenceScheduleScreen(
-                  key: UniqueKey(), day: day, showOnlyOneTrack: true));
+                  key: UniqueKey(), day: day, conferenceName: conference.name, showOnlyOneTrack: true));
             }
             return createBottomBar();
           } else {

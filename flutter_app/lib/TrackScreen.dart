@@ -3,21 +3,28 @@ import 'package:flutter_app/ConferenceModel.dart';
 import 'package:flutter_app/Storage.dart';
 
 class TrackScreen extends StatefulWidget {
-  TrackModel track;
-  int dayId;
+  final TrackModel track;
+  final int dayId;
+  final bool refresh;
 
-  TrackScreen({Key key, @required this.track, @required this.dayId})
+  TrackScreen(
+      {Key key,
+      @required this.track,
+      @required this.refresh,
+      @required this.dayId})
       : super(key: key);
 
   @override
-  createState() => _TrackScreenState(track: track, dayId: dayId);
+  createState() => _TrackScreenState(track: track, refresh: refresh, dayId: dayId);
 }
 
 class _TrackScreenState extends State {
-  TrackModel track;
-  int dayId;
+  final TrackModel track;
+  final int dayId;
+  final bool refresh;
 
-  _TrackScreenState({@required this.track, @required this.dayId});
+  _TrackScreenState(
+      {@required this.track, @required this.refresh, @required this.dayId});
 
   @override
   Widget build(BuildContext context) {
@@ -50,19 +57,28 @@ class _TrackScreenState extends State {
           child: IconButton(
               icon: Icon((talk.isFavourite) ? Icons.star : Icons.star_border),
               onPressed: () {
-                if(talk.isFavourite){
-                  Storage.removeTalk(dayId, talk);
+                if (talk.isFavourite) {
+                  Storage.removeTalk(dayId, talk).then((onValue){
+                    setState(() {
+                      talk.isFavourite = !talk.isFavourite;
+                      if (refresh) {
+                        talk.title = "";
+                        talk.speaker = "";
+                        talk.startTime = "";
+                        talk.endTime = "";
+                      }
+                    });
+                  });
                 } else {
-                  Storage.storeTalk(dayId, talk);
+                  Storage.storeTalk(dayId, talk).then((onValue){
+                    setState(() {
+                      talk.isFavourite = !talk.isFavourite;
+                    });
+                  });
                 }
-                setState(() {
-                  talk.isFavourite = !talk.isFavourite;
-                  talk.title = "";
-                  talk.speaker = "";
-                  talk.startTime = "";
-                  talk.endTime = "";
-                });
+
               })),
     );
+
   }
 }

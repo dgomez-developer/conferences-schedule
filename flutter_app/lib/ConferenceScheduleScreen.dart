@@ -7,19 +7,21 @@ class ConferenceScheduleScreen extends StatefulWidget {
 
   final ConferenceDayModel day;
   final bool showOnlyOneTrack;
+  final String conferenceName;
 
-  ConferenceScheduleScreen({Key key, @required this.day, @required this.showOnlyOneTrack}) : super(key: key);
+  ConferenceScheduleScreen({Key key, @required this.day, @required this.conferenceName, @required this.showOnlyOneTrack}) : super(key: key);
 
   @override
-  createState() => _ConferencesScheduleScreenState(conference: day, showOnlyOneTrack: showOnlyOneTrack);
+  createState() => _ConferencesScheduleScreenState(conference: day, conferenceName: conferenceName, showOnlyOneTrack: showOnlyOneTrack);
 }
 
 class _ConferencesScheduleScreenState extends State {
 
   final ConferenceDayModel conference;
   final bool showOnlyOneTrack;
+  final String conferenceName;
 
-  _ConferencesScheduleScreenState({@required this.conference, @required this.showOnlyOneTrack});
+  _ConferencesScheduleScreenState({@required this.conference, @required this.conferenceName, @required this.showOnlyOneTrack});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,8 @@ class _ConferencesScheduleScreenState extends State {
     } else {
       return Scaffold(
           appBar: AppBar(
-            title: TabBar(
+            title: Text(conferenceName),
+            bottom: TabBar(
               tabs: createTabs(),
             ),
           ),
@@ -49,7 +52,9 @@ class _ConferencesScheduleScreenState extends State {
   List<Widget> createTabs() {
     var tabs = new List<Widget>();
     for (var track in conference.tracks) {
-      tabs.add(new Text(track.name));
+      tabs.add(new Tab(
+          text: track.name
+      ));
     }
     return tabs;
   }
@@ -58,7 +63,7 @@ class _ConferencesScheduleScreenState extends State {
     var tabViews = new List<Widget>();
     for (var track in conference.tracks) {
       tabViews.add(new TrackScreen(
-          key: UniqueKey(), track: track, dayId: conference.dayId));
+          key: UniqueKey(), track: track, refresh: showOnlyOneTrack, dayId: conference.dayId));
     }
     return tabViews;
   }

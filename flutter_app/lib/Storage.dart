@@ -19,7 +19,7 @@ class Storage {
     List<ConferenceDayModel> myDays = new List<ConferenceDayModel>(days.length);
     for (var i = 0; i < myDays.length; i++) {
       myDays[i] = new ConferenceDayModel(
-          date: days[i].date, tracks: new List<TrackModel>());
+          date: days[i].date, dayId: days[i].dayId, tracks: new List<TrackModel>());
     }
     for (var keyId in keys) {
       var talkJson = prefs.getString(keyId);

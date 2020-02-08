@@ -19,20 +19,7 @@ class _HomeState extends State<Home> {
 
   initState() {
     super.initState();
-    API.getConference().then((onValue) {
-      setState(() {
-        conference = onValue;
-        TalkMapper.markAsFavourite(conference).then((onValue) {
-          _children = new List<Widget>();
-          for (var day in conference.days) {
-            _children.add(new ConferenceScheduleScreen(
-                key: UniqueKey(),
-                day: day,
-                showOnlyOneTrack: day.tracks.length < 2));
-          }
-        });
-      });
-    });
+    loadData();
   }
 
   @override
@@ -42,9 +29,6 @@ class _HomeState extends State<Home> {
 
   Scaffold createBottomBar() {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(conference.name),
-      ),
       body: _children[_currentIndex], // new
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped, // new
@@ -76,12 +60,31 @@ class _HomeState extends State<Home> {
   }
 
   void pushMyAgenda() async {
-    Navigator.push(
+    var result = await Navigator.push(
       context,
       // Create the SelectionScreen in the next step.
       MaterialPageRoute(
           builder: (context) =>
               MyScheduleScreen(key: UniqueKey(), conferenceModel: conference)),
     );
+    loadData();
+  }
+
+  void loadData() {
+    API.getConference().then((onValue) {
+      setState(() {
+        conference = onValue;
+        TalkMapper.markAsFavourite(conference).then((onValue) {
+          _children = new List<Widget>();
+          for (var day in conference.days) {
+            _children.add(new ConferenceScheduleScreen(
+                key: UniqueKey(),
+                day: day,
+                conferenceName: conference.name,
+                showOnlyOneTrack: day.tracks.length < 2));
+          }
+        });
+      });
+    });
   }
 }
