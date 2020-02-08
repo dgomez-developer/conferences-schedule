@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ConferenceModel.dart';
+import 'package:flutter_app/JumpingLogo.dart';
 import 'package:flutter_app/TalkMapper.dart';
 import 'API.dart';
 import 'ConferenceScheduleScreen.dart';
@@ -12,18 +13,36 @@ class Home extends StatefulWidget {
   }
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   ConferenceModel conference;
   int _currentIndex = 0;
   List<Widget> _children;
+  AnimationController animationController;
+  Animation<double> animation;
 
   initState() {
     super.initState();
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+    animation = Tween<double>(begin: 0.0, end: 100.0).animate(animationController)..addListener((){
+    })..addStatusListener((status){
+      if (status == AnimationStatus.completed)
+        animationController.reverse();
+      if (status == AnimationStatus.dismissed) {
+        animationController.forward();
+      }
+    });
+    animationController.forward();
+  }
+
+  @override
+  void dispose(){
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-//    return createBottomBar();
     return FutureBuilder(
       future: loadData(),
       builder: (BuildContext context, AsyncSnapshot<ConferenceModel> snapshot) {
@@ -31,11 +50,8 @@ class _HomeState extends State<Home> {
           return Scaffold(
               backgroundColor: Colors.blue,
               body: Center(
-                 child: CircularProgressIndicator(
-                   backgroundColor: Colors.white,
-                 ),
-               )
-          );
+                child: JumpingLogo(animation: animation),
+              ));
         } else {
           conference = snapshot.data;
           _children = new List<Widget>();
@@ -46,6 +62,7 @@ class _HomeState extends State<Home> {
                 conferenceName: conference.name,
                 showOnlyOneTrack: day.tracks.length < 2));
           }
+          animationController.dispose();
           return createBottomBar();
         }
       },
