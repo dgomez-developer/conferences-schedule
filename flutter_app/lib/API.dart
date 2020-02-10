@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'TalkMapper.dart';
 
 //const localhostUrl = "http://10.0.2.2:5000";
-const localhostUrl = "https://api.myjson.com/bins/1hiqpc";
+//const localhostUrl = "https://api.myjson.com/bins/1hiqpc";
+const localhostUrl = "https://api.myjson.com/bins/b34yc";
 
 class API {
   static Future<ConferenceModel> getConference() async {

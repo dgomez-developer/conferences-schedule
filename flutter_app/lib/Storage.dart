@@ -59,15 +59,6 @@ class Storage {
     prefs.remove(dayId.toString() + "-" + talk.startTime);
   }
 
-  static Future<TalkModel> getTalk(int dayId, String startTime) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String talkJson = prefs.getString(dayId.toString() + "-" + startTime);
-    if (talkJson == null) {
-      return null;
-    }
-    return TalkModel.fromJson(json.decode(talkJson));
-  }
-
   static Future<TalkModel> getTalkById(String keyId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String talkJson = prefs.getString(keyId);

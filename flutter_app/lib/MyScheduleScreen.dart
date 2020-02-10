@@ -28,7 +28,6 @@ class _MyScheduleScreenState extends State {
 
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder<ConferenceModel>(
       future: loadData(),
       builder: (BuildContext context, AsyncSnapshot<ConferenceModel> snapshot) {
@@ -46,7 +45,10 @@ class _MyScheduleScreenState extends State {
             _children = new List<Widget>();
             for (var day in myConference.days) {
               _children.add(new ConferenceScheduleScreen(
-                  key: UniqueKey(), day: day, conferenceName: conference.name, showOnlyOneTrack: true));
+                  key: UniqueKey(),
+                  day: day,
+                  conferenceName: conference.name,
+                  showOnlyOneTrack: true));
             }
             return createBottomBar();
           } else {
@@ -69,17 +71,24 @@ class _MyScheduleScreenState extends State {
 
   Scaffold createBottomBar() {
     return (_children != null && _children.isNotEmpty)
-        ? Scaffold(
-            appBar: AppBar(
-              title: Text("my track"),
-            ),
-            body: _children[_currentIndex], // new
-            bottomNavigationBar: BottomNavigationBar(
-              onTap: onTabTapped, // new
-              currentIndex: _currentIndex, // new
-              items: createTabs(),
-            ),
-          )
+        ? (conference.days.length > 1)
+            ? Scaffold(
+                appBar: AppBar(
+                  title: Text("my track"),
+                ),
+                body: _children[_currentIndex], // new
+                bottomNavigationBar: BottomNavigationBar(
+                  onTap: onTabTapped, // new
+                  currentIndex: _currentIndex, // new
+                  items: createTabs(),
+                ),
+              )
+            : Scaffold(
+                appBar: AppBar(
+                  title: Text("my track"),
+                ),
+                body: _children[_currentIndex], // new
+              )
         : Scaffold(
             appBar: AppBar(
               title: Text("my track"),

@@ -24,20 +24,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.initState();
     animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
-    animation = Tween<double>(begin: 0.0, end: 100.0).animate(animationController)..addListener((){
-    })..addStatusListener((status){
-      if (status == AnimationStatus.completed)
-        animationController.reverse();
-      if (status == AnimationStatus.dismissed) {
-        animationController.forward();
-      }
-    });
+    animation =
+        Tween<double>(begin: 0.0, end: 100.0).animate(animationController)
+          ..addListener(() {})
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed)
+              animationController.reverse();
+            if (status == AnimationStatus.dismissed) {
+              animationController.forward();
+            }
+          });
     animationController.forward();
   }
 
   @override
-  void dispose(){
-    if(animationController != null) {
+  void dispose() {
+    if (animationController != null) {
       animationController.dispose();
     }
     super.dispose();
@@ -49,16 +51,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       future: loadData(),
       builder: (BuildContext context, AsyncSnapshot<ConferenceModel> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return (animationController !=null) ? Scaffold(
-              backgroundColor: Colors.blue,
-              body: Center(
-                child: JumpingLogo(animation: animation)
-              )) :
-          Scaffold(
-              appBar: AppBar(title: Text(conference.name)),
-              body: Center(
-                child: CircularProgressIndicator(backgroundColor: Colors.blue),
-              ));
+          return (animationController != null)
+              ? Scaffold(
+                  backgroundColor: Colors.blue,
+                  body: Center(child: JumpingLogo(animation: animation)))
+              : Scaffold(
+                  appBar: AppBar(title: Text(conference.name)),
+                  body: Center(
+                    child:
+                        CircularProgressIndicator(backgroundColor: Colors.blue),
+                  ));
         } else {
           conference = snapshot.data;
           _children = new List<Widget>();
@@ -69,7 +71,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 conferenceName: conference.name,
                 showOnlyOneTrack: day.tracks.length < 2));
           }
-          if(animationController!=null) {
+          if (animationController != null) {
             animationController.dispose();
             animationController = null;
           }
@@ -80,18 +82,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Scaffold createBottomBar() {
-    return Scaffold(
-      body: _children[_currentIndex], // new
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped, // new
-        currentIndex: _currentIndex, // new
-        items: createTabs(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.calendar_view_day),
-        onPressed: pushMyAgenda,
-      ),
-    );
+    return (conference.days.length > 1)
+        ? Scaffold(
+            body: _children[_currentIndex], // new
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: onTabTapped, // new
+              currentIndex: _currentIndex, // new
+              items: createTabs(),
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.calendar_view_day),
+              onPressed: pushMyAgenda,
+            ),
+          )
+        : Scaffold(
+            body: _children[_currentIndex], // new
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.calendar_view_day),
+              onPressed: pushMyAgenda,
+            ),
+          );
   }
 
   List<BottomNavigationBarItem> createTabs() {
