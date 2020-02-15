@@ -9,7 +9,11 @@ class ConferenceScheduleScreen extends StatefulWidget {
   final bool showOnlyOneTrack;
   final String conferenceName;
 
-  ConferenceScheduleScreen({Key key, @required this.day, @required this.conferenceName, @required this.showOnlyOneTrack}) : super(key: key);
+  ConferenceScheduleScreen({
+    Key key,
+    @required this.day,
+    @required this.conferenceName,
+    @required this.showOnlyOneTrack}) : super(key: key);
 
   @override
   createState() => _ConferencesScheduleScreenState(conference: day, conferenceName: conferenceName, showOnlyOneTrack: showOnlyOneTrack);
