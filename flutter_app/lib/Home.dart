@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ConferenceModel.dart';
+import 'package:flutter_app/Config.dart';
 import 'package:flutter_app/JumpingLogo.dart';
 import 'package:flutter_app/TalkMapper.dart';
 import 'API.dart';
@@ -53,13 +54,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return (animationController != null)
               ? Scaffold(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Config.theme,
                   body: Center(child: JumpingLogo(animation: animation)))
               : Scaffold(
                   appBar: AppBar(title: Text(conference.name)),
                   body: Center(
                     child:
-                        CircularProgressIndicator(backgroundColor: Colors.blue),
+                        CircularProgressIndicator(backgroundColor: Config.theme),
                   ));
         } else {
           conference = snapshot.data;

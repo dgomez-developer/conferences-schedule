@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Config.dart';
 
 class JumpingLogo extends AnimatedWidget {
   JumpingLogo({Key key, Animation<double> animation})
@@ -8,7 +9,7 @@ class JumpingLogo extends AnimatedWidget {
     final Animation<double> animation = listenable;
     return Container(
       height: animation.value,
-      child: Image.asset("images/t3chfest-logo.png"),
+      child: Config.icon,
     );
   }
 }
