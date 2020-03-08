@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 enum Flavor {
   T3CHFEST,
   WTM_MADRID,
+  WTM_BARCELONA
 }
 
 class Config {
@@ -11,7 +12,7 @@ class Config {
   static const MaterialColor t3chfestTheme = const MaterialColor(
     0xff1B1E54,
     const <int, Color>{
-      50:  const Color(0xFFE4E4EA),
+      50: const Color(0xFFE4E4EA),
       100: const Color(0xFFBBBCCC),
       200: const Color(0xFF8D8FAA),
       300: const Color(0xFF5F6287),
@@ -27,7 +28,7 @@ class Config {
   static const MaterialColor wtmTheme = const MaterialColor(
     0xff6246BC,
     const <int, Color>{
-      50:  const Color(0xFFECE9F7),
+      50: const Color(0xFFECE9F7),
       100: const Color(0xFFD0C8EB),
       200: const Color(0xFFB1A3DE),
       300: const Color(0xFF917ED0),
@@ -40,15 +41,37 @@ class Config {
     },
   );
 
+  static const MaterialColor wtmBarcelonaTheme = const MaterialColor(
+    0xff0ABCA4,
+    const <int, Color>{
+      50: const Color(0xFFE2F7F4),
+      100: const Color(0xFFB6EBE4),
+      200: const Color(0xFF85DED2),
+      300: const Color(0xFF85DED2),
+      400: const Color(0xFF2FC6B2),
+      500: const Color(0xff0ABCA4),
+      600: const Color(0xFF09B69C),
+      700: const Color(0xFF07AD92),
+      800: const Color(0xFF05A589),
+      900: const Color(0xFF039778),
+    },
+  );
+
   static Flavor appFlavor;
 
   static String get endpoint {
     switch (appFlavor) {
       case Flavor.T3CHFEST:
         return "https://conferences-schedule-api.herokuapp.com/api/t3chfest/schedule/2020";
+//        return "http://10.0.2.2:5000/api/t3chfest/schedule/2020";
+      case Flavor.WTM_BARCELONA:
+        return "https://conferences-schedule-api.herokuapp.com/api/wtm-barcelona/schedule/2020";
+//        return "http://10.0.2.2:5000/api/wtm-barcelona/schedule/2020";
       case Flavor.WTM_MADRID:
       default:
         return "https://conferences-schedule-api.herokuapp.com/api/wtm-madrid/schedule/2020";
+//        return "http://10.0.2.2:5000/api/wtm-madrid/schedule/2020";
+
     }
   }
 
@@ -56,6 +79,7 @@ class Config {
     switch (appFlavor) {
       case Flavor.T3CHFEST:
         return Image.asset("images/t3chfest-logo.png");
+      case Flavor.WTM_BARCELONA:
       case Flavor.WTM_MADRID:
       default:
         return Image.asset("images/wtm-logo.png");
@@ -66,6 +90,8 @@ class Config {
     switch (appFlavor) {
       case Flavor.T3CHFEST:
         return t3chfestTheme;
+      case Flavor.WTM_BARCELONA:
+        return wtmBarcelonaTheme;
       case Flavor.WTM_MADRID:
       default:
         return wtmTheme;
@@ -76,6 +102,8 @@ class Config {
     switch (appFlavor) {
       case Flavor.T3CHFEST:
         return t3chfestTheme.shade500;
+      case Flavor.WTM_BARCELONA:
+        return wtmBarcelonaTheme.shade500;
       case Flavor.WTM_MADRID:
       default:
         return wtmTheme.shade500;

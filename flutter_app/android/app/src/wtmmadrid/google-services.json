@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "664050747376",
+    "firebase_url": "https://conference-schedule-dgomez.firebaseio.com",
+    "project_id": "conference-schedule-dgomez",
+    "storage_bucket": "conference-schedule-dgomez.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664050747376:android:b904f6f791227bde0e7f35",
+        "android_client_info": {
+          "package_name": "com.developer.dgomez.conferences.wtmmadrid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664050747376-c79f7dhh133qnh12osgpfkoq3h02eiu6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtZd-CAQR0UngM3hGtHx8OWVjl5fZMgcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664050747376-c79f7dhh133qnh12osgpfkoq3h02eiu6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
