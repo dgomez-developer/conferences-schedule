@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 enum Flavor {
@@ -107,6 +109,30 @@ class Config {
       case Flavor.WTM_MADRID:
       default:
         return wtmTheme.shade500;
+    }
+  }
+
+  static String get googleAppId {
+    switch (appFlavor) {
+      case Flavor.T3CHFEST:
+        return (Platform.isAndroid) ? '1:664050747376:android:036118d07e5b32390e7f35' : '1:664050747376:ios:d7995f0be416441b0e7f35';
+      case Flavor.WTM_BARCELONA:
+        return (Platform.isAndroid) ? '1:664050747376:android:4d1da730b92e5b360e7f35' : '1:664050747376:ios:ce248694c46d2d2d0e7f35';
+      case Flavor.WTM_MADRID:
+      default:
+        return (Platform.isAndroid) ? '1:664050747376:android:b904f6f791227bde0e7f35' : '1:664050747376:ios:da3ecf8eb69bed5b0e7f35';
+    }
+  }
+
+  static String get name {
+    switch (appFlavor) {
+      case Flavor.T3CHFEST:
+        return 't3chfest';
+      case Flavor.WTM_BARCELONA:
+        return 'wtm barcelona';
+      case Flavor.WTM_MADRID:
+      default:
+        return 'wtm madrid';
     }
   }
 }

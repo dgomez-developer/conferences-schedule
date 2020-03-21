@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>664050747376-sb1kighi4a6sf7s1lkk93nag8uf2a7c8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.664050747376-sb1kighi4a6sf7s1lkk93nag8uf2a7c8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCT26O8dTufRMYZQl022_ki2G9S7gTjhng</string>
+	<key>GCM_SENDER_ID</key>
+	<string>664050747376</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.developer.dgomez.conferences.flutterApp.wtmmadrid</string>
+	<key>PROJECT_ID</key>
+	<string>conference-schedule-dgomez</string>
+	<key>STORAGE_BUCKET</key>
+	<string>conference-schedule-dgomez.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:664050747376:ios:da3ecf8eb69bed5b0e7f35</string>
+	<key>DATABASE_URL</key>
+	<string>https://conference-schedule-dgomez.firebaseio.com</string>
+</dict>
+</plist>

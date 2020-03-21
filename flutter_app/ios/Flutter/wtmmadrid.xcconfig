@@ -1,5 +1,4 @@
 #include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
 #include "Generated.xcconfig"
 FLUTTER_TARGET=/Users/dgomez/git_repository/techtalks/conferences-schedule/flutter_app/lib/main-wtm-madrid.dart
-bundle_suffix=wtmmadrid
 APP_NAME=wtm-madrid

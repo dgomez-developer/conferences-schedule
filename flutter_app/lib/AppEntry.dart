@@ -1,11 +1,22 @@
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Config.dart';
 
 import 'Home.dart';
 
-class AppEntry extends StatelessWidget {
-  // This widget is the root of your application.
+class AppEntry extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _AppEntryState();
+  }
+}
+
+class _AppEntryState extends State<AppEntry> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
