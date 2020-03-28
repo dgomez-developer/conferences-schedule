@@ -1,7 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ConferenceModel.dart';
 import 'package:flutter_app/Config.dart';
 import 'package:flutter_app/JumpingLogo.dart';
+import 'package:flutter_app/PushNotifications.dart';
 import 'package:flutter_app/TalkMapper.dart';
 import 'API.dart';
 import 'ConferenceScheduleScreen.dart';
@@ -20,6 +22,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<Widget> _children;
   AnimationController animationController;
   Animation<double> animation;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   initState() {
     super.initState();
@@ -36,6 +39,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             }
           });
     animationController.forward();
+    PushNotifications.firebaseCloudMessagingListeners(_firebaseMessaging);
   }
 
   @override

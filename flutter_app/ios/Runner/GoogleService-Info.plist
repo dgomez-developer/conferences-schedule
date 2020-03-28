@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>664050747376-2dfqj8potjoou4se9jh2quq488jhhbpm.apps.googleusercontent.com</string>
+	<string>664050747376-sb1kighi4a6sf7s1lkk93nag8uf2a7c8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.664050747376-2dfqj8potjoou4se9jh2quq488jhhbpm</string>
+	<string>com.googleusercontent.apps.664050747376-sb1kighi4a6sf7s1lkk93nag8uf2a7c8</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCT26O8dTufRMYZQl022_ki2G9S7gTjhng</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.developer.dgomez.conferences.flutterApp.wtmbarcelona</string>
+	<string>com.developer.dgomez.conferences.flutterApp.wtmmadrid</string>
 	<key>PROJECT_ID</key>
 	<string>conference-schedule-dgomez</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:664050747376:ios:ce248694c46d2d2d0e7f35</string>
+	<string>1:664050747376:ios:da3ecf8eb69bed5b0e7f35</string>
 	<key>DATABASE_URL</key>
 	<string>https://conference-schedule-dgomez.firebaseio.com</string>
 </dict>
